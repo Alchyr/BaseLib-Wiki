@@ -22,9 +22,17 @@ gh_edit_repository: "https://github.com/Alchyr/BaseLib-Wiki"
 
 aux_links:
   BaseLib Repository: https://github.com/Alchyr/BaseLib-StS2
-  Mod Setup Guide: https://github.com/Alchyr/ModTemplate-StS2
+  Mod Setup Guide: https://github.com/Alchyr/ModTemplate-StS2/wiki
+
+nav_external_links:
+  - title: Mod Setup
+    url: https://github.com/Alchyr/ModTemplate-StS2/wiki
 
 plugins:
   - jekyll-seo-tag
   - jekyll-include-cache
   - jekyll-sitemap
+
+sass:
+  quiet_deps: true
+  silence_deprecations: ['import']
