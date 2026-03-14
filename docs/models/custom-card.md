@@ -3,9 +3,9 @@ title: CustomCardModel
 parent: Custom Models
 ---
 
-All card behavior and functionality is defined by their model, from their properties such as cost and type, to what they do when played or when certain events happen.
+Cards must exist in a card pool. When creating a card using `CustomCardModel`, mark it with the `[Pool]` annotation to determine what pool to add it to. The `[Pool]` annotation can be inherited.
 
-Cards must exist in a cardpool. When creating a card using `CustomCardModel`, mark it with the `[Pool]` annotation to determine what pool to add it to. The `[Pool]` annotation can be inherited.
+Using `CustomCardModel` is not required, as you can just mark your classes with the `ICustomModel` interface instead. However, if your class does not inherit `CustomCardModel`, you will need to add a default constructor that calls `CustomContentDictionary.AddModel` for the `[Pool]` annotation to function.
 
 ```c#
 [Pool(typeof(IroncladCardPool))]
