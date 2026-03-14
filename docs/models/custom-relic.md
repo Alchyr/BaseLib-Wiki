@@ -11,9 +11,11 @@ If your class does not inherit `CustomRelicModel`, you will need to add a defaul
 [Pool(typeof(IroncladRelicPool))]
 public class DummyRelic : CustomRelicModel
 {
-
+    public override RelicRarity Rarity => RelicRarity.Starter;
 }
 ```
+
+`CustomRelicModel` provides a `GetUpgradeReplacement` that can be overriden for starter relic upgrades.
 
 ## RelicModel Documentation
 
