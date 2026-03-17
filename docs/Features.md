@@ -14,3 +14,4 @@ List of features (that need documenting)
 * Dynamic Var localization
 * Async method patching utility
 * Persist
+* Use of Godot AnimationPlayer for creature visuals
