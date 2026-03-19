@@ -1,9 +1,9 @@
 ---
-title: ModInterop
+title: Mod Interop
 parent: Utilities
 ---
 
-ModInterop allows mods to utilize code from other mods without using them as a hard dependency.
+`ModInterop` allows mods to utilize code from other mods without using them as a hard dependency.
 
 It can also be used to access private fields/properties/classes as an alternative to reflection.
 
