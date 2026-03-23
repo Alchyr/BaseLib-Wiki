@@ -52,7 +52,7 @@ The names of properties displayed on the configuration screen can be changed by 
 Attributes can be added to your `SimpleModConfig` for additional customization.
 
 ```c#
-//[HoverTipsByDefault] enables hover tips for all attributes unless that individual attribute has them disabled with [ConfigHoverTip(false)]
+//[HoverTipsByDefault] enables hover tips for all properties unless that individual properties has them disabled with [ConfigHoverTip(false)]
 internal class MyModConfig : SimpleModConfig {
     [ConfigHoverTip] //Adds a hover tip, uses .hover.desc and .hover.title (optional) entries in localization.
     public static bool RandomExplosions { get; set; } = true;
