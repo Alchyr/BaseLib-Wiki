@@ -3,7 +3,7 @@ title: CustomOrbModel
 parent: Custom Models
 ---
 
-Orbs are the Defect's core mechanic. `CustomOrbModel` provides hooks for custom icons, sprites, sound effects, and optional inclusion in the random orb pool used by cards like Chaos and Rainbow.
+Orbs are the Defect's core mechanic, but can be applied to any character. `CustomOrbModel` provides hooks for custom icons, sprites, sound effects, and optional inclusion in the random orb pool used by cards like Chaos and Rainbow.
 
 ## Icon and Sprite
 
