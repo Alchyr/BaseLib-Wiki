@@ -9,7 +9,7 @@ Orbs are the Defect's core mechanic, but can be applied to any character. `Custo
 
 Override `CustomIconPath` to provide a custom icon used in tooltips and the orb slot UI.
 
-Override `CustomSpritePath` to point to a custom Godot scene for the orb's in-slot visual. The scene must have a node named `SpineSkeleton` with an `idle_loop` animation.
+Override `CustomSpritePath` to point to a custom Godot scene for the orb's in-slot visual. The scene must have a `SpineSprite` node named `SpineSkeleton` with an `idle_loop` animation.
 
 Alternatively, override `CreateCustomSprite()` to build the orb visual programmatically. For example by compositing existing orb scenes with color tints and scale adjustments. If `CreateCustomSprite()` returns a non-null value, it takes precedence over `CustomSpritePath`.
 ```c#
