@@ -24,15 +24,16 @@ public class PersistVar : DynamicVar
 ```c#
 namespace BaseLib.Cards;
 
+//When using DynamicVar directly a prefix cannot be determined, and so there will not be one.
 public class ExampleOne : CustomCard(args)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [ new DynamicVar("Name", 6) ];
-    //Localization key BASELIB-NAME
+    protected override IEnumerable<DynamicVar> CanonicalVars => [ new DynamicVar("Name", 6).WithTooltip() ];
+    //Localization key NAME
 
 public class ExampleTwo : CustomCard(args)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [ new DynamicVar("Name", 6).WithTooltip("LocKey") ];
-    //Localization key BASELIB-LocKey
+    //Localization key LocKey
 ```
 
 ## Example Localization
