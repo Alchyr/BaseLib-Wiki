@@ -3,7 +3,7 @@ title: CustomOrbModel
 parent: Custom Models
 ---
 
-Orbs are the Defect's core mechanic, but can be applied to any character. `CustomOrbModel` provides hooks for custom icons, sprites, sound effects, and optional inclusion in the random orb pool used by cards like Chaos and Rainbow.
+Orbs are the Defect's core mechanic, but can be applied to any character. `CustomOrbModel` provides hooks for custom icons, sprites, sound effects, and optional inclusion in the random orb pool used by cards like Chaos and Trash to Treasure.
 
 ## Icon and Sprite
 
@@ -21,6 +21,7 @@ public override Node2D? CreateCustomSprite()
         .Instantiate<Node2D>(PackedScene.GenEditState.Disabled);
     new MegaSprite(lightning.GetNode("SpineSkeleton"))
         .GetAnimationState().SetAnimation("idle_loop");
+    // change the color and size
     lightning.Modulate = new Color(0.8f, 0.1f, 0.0f, 1.0f);
     lightning.Scale = new Vector2(1.1f, 1.1f);
     container.AddChild(lightning);
@@ -38,7 +39,7 @@ Note: Proper mod audio support is actively being worked on in BaseLib.
 
 ## Random Orb Pool
 
-By default, custom orbs will not appear from cards like Chaos or Rainbow. Set `IncludeInRandomPool` to `true` to include your orb in the random pool alongside the five vanilla orbs, giving it equal weight.
+By default, custom orbs will not appear from cards like Chaos or Trash to Treasure. Set `IncludeInRandomPool` to `true` to include your orb in the random pool alongside the five vanilla orbs, giving it equal weight.
 ```c#
 public override bool IncludeInRandomPool => true;
 ```
