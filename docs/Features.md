@@ -10,7 +10,7 @@ nav_order: 1
 * Automatic ID prefixing of models that inherit ICustomModel (or any CustomModel class)
 * [Custom Enums (and keywords)]({% link docs/utilities/enums.md %})
 * [GeneratedNodePool - Add nodes generated through code to NodePool]({% link docs/utilities/pooling.md %})
-* [SpireField - Effectively add a field to an existing class](% link docs/utilities/spirefield.md %)
+* [SpireField - Effectively add a field to an existing class]({% link docs/utilities/spirefield.md %})
 * Async method patching utility (`HarmonyExtensions.PatchAsync`)
 * Use of Godot AnimationPlayer for creature visuals
 * Easy addition of extra UI for cards, relics, and potions (ICustomUiModel)
