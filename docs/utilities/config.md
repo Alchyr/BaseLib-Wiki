@@ -19,7 +19,7 @@ Inside this class, define a **static** property for each config value you need. 
 ```c#
 internal class MyModConfig : SimpleModConfig {
     public static bool RandomExplosions { get; set; } = true;
-    public static double ExplosionSize { get; set; } = 5000;
+    public static int ExplosionSize { get; set; } = 80;
 }
 ```
 
@@ -33,9 +33,10 @@ public static void Initialize() {
 ```
 
 This is all you need to do in order to have BaseLib load and save your configuration data automatically, as well as create a configuration UI.  
+Since the properties are static, access them as e.g. `MyModConfig.ExplosionSize`. You typically don't need to store the instance.
 
-After doing this, you should be able to find your mod's config screen by going to Settings -> Mod Settings -> Your Mod -> Settings button.  
-Creating a separate screen to avoid going through this many layers is under consideration.
+After doing this, you should be able to find your mod's config screen in the Mod Configuration menu (in the main menu by default, 
+and under Settings).
 
 ## Localization
 
@@ -54,13 +55,13 @@ See the [Setup page for the mod template](https://github.com/Alchyr/ModTemplate-
 ## Automatic UI
 The following types are currently supported:
 
-| Type     | Generates                                                             |
-|----------|-----------------------------------------------------------------------|
-| bool     | Checkbox                                                              |
-| double   | Slider                                                                |
-| string   | LineEdit                                                              |
-| Any enum | Dropdown                                                              |
-| Method   | Button (see [Advanced]({% link docs/utilities/config-advanced.md %})) |
+| Type               | Generates                                                             |
+|--------------------|-----------------------------------------------------------------------|
+| bool               | Checkbox                                                              |
+| int, float, double | Slider                                                                |
+| string             | LineEdit                                                              |
+| Any enum           | Dropdown                                                              |
+| Method             | Button (see [Advanced]({% link docs/utilities/config-advanced.md %})) |
 
 Static properties of other types need to be marked with `[ConfigIgnore]`.
 
@@ -81,14 +82,20 @@ internal class MyModConfig : SimpleModConfig {
 
     // Adds a section separator with a title. Can be localized the same way as properties.
     [ConfigSection("ExplosionSettings")]
+
+    // Hide a row unless another property has a specific value. Can be inverted with a third parameter
+    // (invert) set to true.
+    [ConfigVisibleWhen(nameof(RandomExplosions), true)]
+
     // Sets the min, max, and step of a double.
     [SliderRange(0, 1, 0.01)]
     public static double ExplosionRate { get; set; } = 0.1;
 
     // See https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings
     // for formatting details
+    [SliderRange(1, 100)]
     [SliderLabelFormat("{0:#,#}x")]
-    public static double ExplosionSize { get; set; } = 5000;
+    public static int ExplosionSize { get; set; } = 80;
 
     // Allows international letters, numbers, spaces, dashes
     [ConfigTextInput(TextInputPreset.SafeDisplayName, MaxLength = 12)]
@@ -112,6 +119,6 @@ internal class MyModConfig : SimpleModConfig {
 }
 ```
 
-With all localization strings added, the config above looks like this (v0.2.1):
+With all localization strings added, the config above looks like this (v0.2.7):
 
 <img src="{{ '/images/config-standard.jpg' | relative_url }}" width="736" alt="Generated Config UI" />
