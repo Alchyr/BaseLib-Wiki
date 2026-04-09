@@ -68,7 +68,10 @@ You could add a config option to let the player set the number of custom cards t
 Attributes like `[SliderRange]` only support values known at compile time, so you need to do this manually.
 
 ```csharp
-public static double DraftPoolSize { get; set; } = 10;
+// Ensure that the initial max value is AT LEAST the max possible dynamic value, or the user's value will
+// get clamped to the slider's initial maximum (100 by default) before you call SetRange!
+[SliderRange(1, 200)]
+public static int DraftPoolSize { get; set; } = 10;
 
 public override void SetupConfigUI(Control optionContainer)
 {
@@ -91,7 +94,6 @@ public override void SetupConfigUI(Control optionContainer)
 }
 ```
 <img src="{{ '/images/config-wide-slider.jpg' | relative_url }}" alt="Extra wide slider" />
-
 
 ## Additional methods
 
