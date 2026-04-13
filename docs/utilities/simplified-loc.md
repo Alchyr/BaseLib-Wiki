@@ -5,9 +5,12 @@ parent: Utilities
 
 Mods can use simplified localization shortcuts by either opting their entire mod's localization in or by starting a localization entry with `#`.
 
+To opt-in your mod's entire localization, call `SimpleLoc.EnableSimpleLoc(ModId);` in your mod's initializer.
+
 ## Formatting
 
 `!Var!` will be replaced with `{Var:diff()}`.
+
 `?Var?` will be replaced with `{Var:inverseDiff()}`.
 
 Certain names have shortened versions that can be used.
