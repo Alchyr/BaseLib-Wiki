@@ -25,7 +25,7 @@ Certain names have shortened versions that can be used.
         { "H", "Heal" }
 ```
 
-`*Word` will be replaced with `[gold]Word[/gold].
+`*Word` will be replaced with `[gold]Word[/gold]`.
 Highlighting will end either on whitespace or end of "word" (symbol). You can surround text like `*Wo*rd` -> `[gold]Wo[/gold]rd` to explicitly control what is highlighted.
 
 `(plural)` will be displayed if the most recently referenced variable is plural.
