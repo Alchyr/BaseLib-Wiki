@@ -5,7 +5,7 @@ parent: Utilities
 
 Mods can use simplified localization shortcuts by either opting their entire mod's localization in or by starting a localization entry with `#`.
 
-To opt-in your mod's entire localization, call `SimpleLoc.EnableSimpleLoc(ModId);` in your mod's initializer.
+To opt-in your mod's entire localization, you can call `SimpleLoc.EnableSimpleLoc(ModId);` in your mod's initializer, but this is not *recommended*. It will result in many strings being processed unnecessarily.
 
 ## Formatting
 
