@@ -36,7 +36,7 @@ SpecialNumberThing.SpecialNumber[model] = 5;
 
 ## SavedSpireField
 
-SavedSpireField is a class inheriting from SpireField with the additional functionality of saving and loading its value when attached to a model.
+SavedSpireField is a class inheriting from SpireField with the additional functionality of saving and loading its value when attached to a model. Note this will only work for types that the base game saves and loads values for, so primary just `CardModel` and `RelicModel`. This may change in the future.
 
 It is used almost identically to a normal SpireField; the only difference is that you have to provide a name which will be used for the save data. SavedSpireField does not support ALL types, only the same types allowed by the basegame's `[SavedProperty]` attribute.
 
@@ -46,8 +46,8 @@ It is used almost identically to a normal SpireField; the only difference is tha
 - int[]
 - ModelId
 - SerializableCard
-- SerailizableCard[]
-- List<SerailizableCard>
+- SerializableCard[]
+- List<SerializableCard>
 
 A SavedSpireField might look like the following:
 

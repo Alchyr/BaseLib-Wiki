@@ -5,7 +5,30 @@ parent: Custom Models
 
 BaseLib assists in setting up pools and visuals for a character.
 
-## Pools
+`PlaceholderCharacterModel` will utilize the assets of the basegame character determined by the `PlaceholderID` method, defaulting to `ironclad`.
 
-## Visuals
+## Pools (Stub)
 
+`CustomCardPoolModel`
+
+`CustomRelicPoolModel`
+
+`CustomPotionPoolModel`
+
+## Visuals (Stub)
+
+[Character (combat) Visuals]({% link docs/scenes/creature-visuals.md %})
+
+Rest Site Visuals
+
+Merchant Visuals
+
+Energy Counter
+
+## Extra
+
+`HideFromVanillaCharacterSelect` - Hides a character from the standard character select screen.
+
+`AllowInVanillaRandomCharacterSelect` - defaults to inverse of `HideFromVanillaCharacterSelect`
+
+`SetupCustomAnimationStates` - Used exclusively for Spine animations.

@@ -37,6 +37,10 @@ public class FancyStrike() : CustomCardModel(1, CardType.Attack, CardRarity.Basi
 
 `ITranscendenceCard` should be implemented on a starter card that is upgraded by Orobas. Any ancient card within a character's pool that is not a transcendence card can be chosen for Darv's Dusty Tome.
 
+## Visuals
+
+While a card's appearance is normally determined by its pool, `CustomCardModel` allows cards to individually set their frame (background) texture and material by overriding `CustomFrame` and/or `CreateCustomFrameMaterial`.
+
 ## CardModel Documentation
 
 TODO
