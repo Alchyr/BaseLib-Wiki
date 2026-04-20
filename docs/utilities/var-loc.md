@@ -3,7 +3,7 @@ title: Dynamic Variable Tooltips
 parent: Utilities
 ---
 
-BaseLib supports attaching localization to a dynamic variable, specifically adding a tooltip for any card that has that dynamic variable. The tooltip's localization should be in `static_hover_tips.json`, with the localization keys being `MODNAME-KEYWORD_NAME.title` and `MODNAME-KEYWORD_NAME.description`.
+BaseLib supports attaching localization to a dynamic variable, specifically adding a tooltip for any card that has that dynamic variable. The tooltip's localization should be in `static_hover_tips.json`, with the localization keys being `MODNAME-VAR_NAME.title` and `MODNAME-VAR_NAME.description`.
 
 Adding the tooltip is done by calling `WithTooltip` on the `DynamicVar` instance, which can be done in the constructor of a custom `DynamicVariable` class or by calling it on the variable when defining a card's canonical variables.
 
@@ -43,4 +43,4 @@ public class ExampleTwo : CustomCard(args)
   "BASELIB-PERSIST.description": "This card returns to your hand the first {Persist:cond:>1?[blue]{Persist}[/blue] |}{Persist:plural:time|times} it is played each turn.",
 ```
 
-It is important to note that tooltips generated this way will ONLY have access to their own variable. So in this case the Persist variable is the only one that can be used inside this tooltip.
+It is important to note that tooltips generated this way will ONLY have access to their own variable. So in this case, the Persist variable is the only one that can be used inside this tooltip.

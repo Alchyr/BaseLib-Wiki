@@ -1,6 +1,6 @@
 ---
 title: Ancient Dialogue
-parent: Extras
+parent: Localization
 ---
 
 `BaseLib` is set up to automatically load dialogues for custom ancients, as well as to add dialogues defined for any ancient and character to that ancient's dialogue collection.

@@ -51,7 +51,7 @@ If `ShouldForceSpawn` is used, `IsValidForAct` should most likely be overridden 
 
 `CustomAncientModel` is set up to load dialogues automatically if they are set up according to the same format as basegame ancient dialogue.
 
-See [Ancient Dialogues]({% link docs/extras/ancient-dialogue.md %})
+See [Ancient Dialogues]({% link docs/localization/ancient-dialogue.md %})
 
 Besides dialogues, three entries, `title`, `epithet`, and `talk.firstVisitEver.0-0.ancient` are required.
 

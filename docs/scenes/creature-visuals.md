@@ -1,18 +1,16 @@
 ---
 title: Creature Visuals
-parent: Utilities
+parent: Scenes
 ---
-
-BaseLib contains a few utilities to help with the creation of and increase the variety of options available to use for creature visuals. This page will explain those as well as some more general information regarding creating creature visuals.
 
 ## NCreatureVisuals
 
 This is the script (effectively the base type) that all creature visuals must be. However, when creating a scene through Godot's editor, scripts from other assemblies are not accessible. There are a few options to work around this.
 
-* Define a class inheriting from `NCreatureVisuals` marked with the `[GlobalClass]` attribute and use it as the script for your scene. You can add additional functionality in this class as well if you wish.
 * Use `NodeFactory<NCreatureVisuals>.CreateFromScene` to convert a scene that isn't using `NCreatureVisuals` as its script into an `NCreatureVisuals` instance. `CustomCharacterModel` will do this by default if the scene path provided for its visuals does not inherit from NCreatureVisuals.
 * Use `NodeFactory<NCreatureVisuals>.CreateFromResource` to convert a `.png` or other common image format into an `NCreatureVisuals` instance. If using this for a character, override `CreateCustomVisuals` and return this.
-* Define the visuals scene manually by editing a .tscn file in text, which allows you to set its script to NCreatureVisuals. You will not be able to edit this scene in the Godot editor.
+* Define a class inheriting from `NCreatureVisuals` marked with the `[GlobalClass]` attribute and use it as the script for your scene. You can add additional functionality in this class as well if you wish.
+* Define the visuals scene manually by editing a .tscn file in text, which allows you to set its script to `NCreatureVisuals`. You will not be able to edit this scene in the Godot editor.
 
 ## Scene Setup
 
