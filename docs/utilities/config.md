@@ -144,6 +144,14 @@ internal class MyModConfig : SimpleModConfig {
     [ConfigVisibleIf(nameof(RandomExplosions))]
     public static int ExplosionSize { get; set; } = 80;
     
+    // Will keep its value despite Restore Defaults being used (by the user, or via
+    // ModConfig.RestoreDefaultsNoConfirm).
+    // You can use ModConfig.GetDefaultValue to reset it manually (or, of course, simply set the
+    // property value manually).
+    // Useful with [ConfigHideInUI] for persistent state, but can be used with visible options as well.
+    [ConfigIgnoreRestoreDefaults]
+    public static bool PersistentSetting { get; set; } = true;
+
     // Will be loaded and saved, but not shown in the UI.
     // If you change the value at runtime, call ModConfig.SaveDebounced<MyModConfig>() to ensure that
     // the new value is written to disk.
