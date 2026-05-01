@@ -34,6 +34,12 @@ int val = SpecialNumberThing.SpecialNumber[model];
 SpecialNumberThing.SpecialNumber[model] = 5;
 ```
 
+### Common Cases
+
+For storing per-player, per-combat data (like Defect's orbs), a `SpireField<PlayerCombatState, ?>` is suggested. The `CharacterModel` is not unique between players using the same character, and while `Player` is unique between characters, using `PlayerCombatState` avoids having to reset data manually between combats.
+
+For persistent, per-player data, a `SavedSpireField<Player, ?>` will be the recommendation in the future. However, currently `SavedSpireField` will not save properly this way as `[SavedProperty]` does not work for the `Player` class.
+
 ## SavedSpireField
 
 SavedSpireField is a class inheriting from SpireField with the additional functionality of saving and loading its value when attached to a model. Note this will only work for types that the base game saves and loads values for, so primary just `CardModel` and `RelicModel`. This may change in the future.
