@@ -5,7 +5,7 @@ parent: Utilities
 
 Mods that want customizable config options can register a config with BaseLib.
 
-## Setup
+# Setup
 
 First, the config options must be defined. Create a class inheriting from `SimpleModConfig`.
 ```c#
@@ -33,7 +33,7 @@ public static void Initialize() {
 ```
 
 This is all you need to do in order to have BaseLib load and save your configuration data automatically, as well as create a configuration UI.  
-Since the properties are static, access them as e.g. `MyModConfig.ExplosionSize`. You typically don't need to store the instance.
+Since the properties are static, you can access them from anywhere in your mod's code as e.g. `MyModConfig.ExplosionSize`.
 
 After doing this, you should be able to find your mod's config screen in the Mod Configuration menu (in the main menu by default, 
 and under Settings).
@@ -50,62 +50,107 @@ The names of properties displayed on the configuration screen can be changed by 
 }
 ```
 
+The same conversion is performed for things like section names such as `[ConfigSection("SectionName")]`, button labels, and so on.
+
 See the [Setup page for the mod template](https://github.com/Alchyr/ModTemplate-StS2/wiki/Setup) for information about localization and how to get the above into the game.
 
-## Automatic UI
+# Automatic UI
 The following types are currently supported:
 
-| Type               | Generates                                                             |
-|--------------------|-----------------------------------------------------------------------|
-| bool               | Checkbox                                                              |
-| int, float, double | Slider                                                                |
-| string             | LineEdit                                                              |
-| Any enum           | Dropdown                                                              |
-| Method             | Button (see [Advanced]({% link docs/utilities/config-advanced.md %})) |
+| Type                                 | Generates                                                             |
+|--------------------------------------|-----------------------------------------------------------------------|
+| bool                                 | Checkbox                                                              |
+| Any enum                             | Dropdown                                                              |
+| int, float, double                   | Slider                                                                |
+| string                               | LineEdit                                                              |
+| Color, or [ConfigColorPicker] string | Color picker button                                                   |
+| Method                               | Button (see [Advanced]({% link docs/utilities/config-advanced.md %})) |
 
-Static properties of other types need to be marked with `[ConfigIgnore]`.
+Static properties of other types need to be marked with `[ConfigIgnore]` to avoid a message printed in the console/log.
 
-## Config Attributes
+## Checkbox, Dropdown
 
-Attributes can be added to your `SimpleModConfig` for additional customization.
+These have no special configuration.
+
+```csharp
+public static bool SkipNeow { get; set; } = false;
+
+public enum PotionDropRate { Low, Normal, High, Guaranteed }
+public static PotionDropRate EnemyPotionDropRate { get; set; } = PotionDropRate.Normal;
+```
+## Slider
+
+Supports a user-defined range and step (in order: min, max, step), as well as an optional format for the label.  
+int, float and double are supported as backing types. Has a `SetRange` method for setting a range dynamically, when the
+allowed range isn't known at compile time (see [Advanced]({% link docs/utilities/config-advanced.md %})).
+
+```csharp
+// See https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings
+// for formatting details
+[ConfigSlider(-20, 20, 1, Format = "{0} HP")]
+public static int StartHPOffset { get; set; } = 0;
+```
+
+## LineEdit
+
+Supports a user-defined max length, as well as allowed characters (via a preset or custom regex).  
+If the user enters an invalid value and the LineEdit loses focus, it reverts to the most recent valid value.
+
+```csharp
+[ConfigTextInput(TextInputPreset.SafeDisplayName, MaxLength = 16)]
+public static string PlayerName { get; set; } = "Player";
+
+[ConfigTextInput(@"[A-Z0-9]+")] // Seeds can technically contain any character, but for the sake of example
+public static string ForcedRunSeed { get; set; } = "123456789ABC";
+```
+
+## Color picker button
+
+Shows a colored square that opens a color picker when clicked.
+Can be backed by either a Godot.Color or a string.   
+If string is used, the `[ConfigColorPicker]` attribute is required (a LineEdit will be generated for a string without the attribute).
+
+```csharp
+// Attribute optional if the default values are used; these are not the defaults
+[ConfigColorPicker(EditAlpha = false, EditIntensity = true)]
+public static Color PlayerColor { get; set; } = Color.FromHtml("#30ff50");
+
+// Attribute required for string even with default values
+[ConfigColorPicker]
+public static string ExplosionColor { get; set; } = "#ff3000ff";
+```
+
+## Other attributes
+
+Aside from the control-specific attributes showcased above, a few others can be added to your `SimpleModConfig` for additional customization.  
+Also see [Advanced]({% link docs/utilities/config-advanced.md %}) for more information about e.g. conditional visibility.
 
 ```c#
-
 // Enables hover tips for all properties unless the individual property has them disabled
-// by marking them with [ConfigHoverTip(false)]
-[HoverTipsByDefault]
+// by marking them with [ConfigHoverTip(false)]. You still need to add localization strings.
+[ConfigHoverTipsByDefault]
 internal class MyModConfig : SimpleModConfig {
     // Adds a hover tip for just this property, uses .hover.desc and .hover.title (optional) suffixes
-    // in localization. Not necessary with [HoverTipsByDefault] on the class.
+    // in localization. Not necessary with [ConfigHoverTipsByDefault] on the class.
     [ConfigHoverTip]
     public static bool RandomExplosions { get; set; } = true;
 
-    // Adds a section separator with a title. Can be localized the same way as properties.
+    // Starts a new collapsible section with the next property/method. Can be localized the same way as
+    // properties. For the example mod, this property's text would be defined as:
+    // RANDOMEXPLOSIONS-EXPLOSION_SETTINGS.title
     [ConfigSection("ExplosionSettings")]
-
-    // Hide a row unless another property has a specific value. Can be inverted with a third parameter
-    // (invert) set to true.
-    [ConfigVisibleWhen(nameof(RandomExplosions), true)]
-
-    // Sets the min, max, and step of a double.
-    [SliderRange(0, 1, 0.01)]
-    public static double ExplosionRate { get; set; } = 0.1;
-
-    // See https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings
-    // for formatting details
-    [SliderRange(1, 100)]
-    [SliderLabelFormat("{0:#,#}x")]
+        
+    // Only shown if RandomExplosions is enabled above
+    [ConfigVisibleIf(nameof(RandomExplosions))]
     public static int ExplosionSize { get; set; } = 80;
-
-    // Allows international letters, numbers, spaces, dashes
-    [ConfigTextInput(TextInputPreset.SafeDisplayName, MaxLength = 12)]
-    public static string ExplosionShout { get; set; } = "KABOOM";
-
-    // Allows exactly 6 hex characters (A-F, 0-9)
-    // MaxLength makes it impossible to enter more than 6 characters, while the regex ensures
-    // that the value is reverted if the user leaves the LineEdit with an invalid value
-    [ConfigTextInput("[A-Fa-f0-9]{6}", MaxLength = 6)]
-    public static string ExplosionColor { get; set; } = "FF0000";
+    
+    // Will keep its value despite Restore Defaults being used (by the user, or via
+    // ModConfig.RestoreDefaultsNoConfirm).
+    // You can use ModConfig.GetDefaultValue to reset it manually (or, of course, simply set the
+    // property value manually).
+    // Useful with [ConfigHideInUI] for persistent state, but can be used with visible options as well.
+    [ConfigIgnoreRestoreDefaults]
+    public static bool PersistentSetting { get; set; } = true;
 
     // Will be loaded and saved, but not shown in the UI.
     // If you change the value at runtime, call ModConfig.SaveDebounced<MyModConfig>() to ensure that
@@ -119,6 +164,6 @@ internal class MyModConfig : SimpleModConfig {
 }
 ```
 
-With all localization strings added, the config above looks like this (v0.2.7):
+With all localization strings added, the examples above look like this (with some removed for the UI to fit on screen):
 
 <img src="{{ '/images/config-standard.jpg' | relative_url }}" width="736" alt="Generated Config UI" />
