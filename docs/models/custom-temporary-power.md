@@ -5,9 +5,9 @@ parent: Custom Models
 
 The `CustomTemporaryPowerModel` is designed to allow you to create temporary versions of any power similar to the base game. It also provides some additional features.
 
-The base game only has Temporary Power Models for `Strength`, `Dexterity` and `Focus`. If you intend to create a temporary power based on them, you can inherit either from the respective base game class or use this one.
+The base game only has Temporary Power Models for `Strength`, `Dexterity` and `Focus`. If you intend to create a temporary power based on them, you can inherit either from the respective base game class or use this one. For any other power, you will need to use this model.
 
-Even if a temporary power is intended to be applied through various models, every Model should have its own temporary power version to properly show tooltips.
+Even if a power is intended to be applied temporarely through various models, every Model should have its own temporary power version to properly show tooltips.
 
 ## Wrapper
 
@@ -30,7 +30,7 @@ public class FooPower : CustomTemporaryPowerModel
 {
     public override AbstractModel OriginModel => ModelDb.Card<Anticipate>();
     public override PowerModel InternallyAppliedPower => ModelDb.Power<StrengthPower>();
-    protected override Func<PlayerChoiceContext, Creature, decimal, Creature?, CardModel?, bool, Task> ApplyPowerFunc=> PowerCmd.Apply<FooPower>;
+    protected override Func<PlayerChoiceContext, Creature, decimal, Creature?, CardModel?, bool, Task> ApplyPowerFunc=> PowerCmd.Apply<StrengthPower>;
 }
 ```
 
@@ -39,7 +39,7 @@ public class FooPower : CustomTemporaryPowerModel
 `CustomBigBetaIconPath`, `CustomPackedIconPath` and `CustomBigIconPath` should be overriden to load a custom filepath.<br>
 *Wrapper provides default implementations*
 
-`Title`, `Description` and `SmartDescriptionLockKey` should be overriden to point to localization keys<br>
+`Title`, `Description` and `SmartDescriptionLocKey` should be overriden to point to localization keys<br>
 *Wrapper provides default implementations*
 
 `ExtraHoverTips` should be overridden to show information about the power and origin model.<br>
@@ -55,21 +55,36 @@ public class FooPower : CustomTemporaryPowerModel
 
 `UntilEndOfOtherSideTurn` will change the removal of the power from the end of the creatures turn to the end of its enemies turn.
 
-## Examples copying base game power behaviours
+### Noteworthy
+
+`TemporaryPowerTitle` is a localization variable that can be used to insert the `InternallyAppliedPower`'s title into the localization text.<br>
+*If you override the localization you won't need this since you know which power will be applied and can just insert the title directly.*
+
+## Examples
 
 #### Focused Strike
 ```c#
-public class FooPower : CustomTemporaryPowerModelWrapper<FocusedStrike, FocusPower> {}
+public class FocusedStrikePower : CustomTemporaryPowerModelWrapper<FocusedStrike, FocusPower> {}
 ```
 #### Speed Potion
 ```c#
-public class FooPower : CustomTemporaryPowerModelWrapper<SpeedPotion, DexterityPower> {}
+public class SpeedPotionPower : CustomTemporaryPowerModelWrapper<SpeedPotion, DexterityPower> {}
 ```
+
 #### Piercing Wail
 ```c#
-public class FooPower : CustomTemporaryPowerModelWrapper<PiercingWail, StrengthPower>
+public class PiercingWailPower : CustomTemporaryPowerModelWrapper<PiercingWail, StrengthPower>
 {
     protected override bool InvertInternalPowerAmount => true;
     public override PowerType Type => PowerType.Debuff;
+}
+```
+
+#### Thorns that last for 2 turns
+```c#
+public class MyTemporaryThornsPower : CustomTemporaryPowerModelWrapper<MyCustomModel, ThornsPower>
+{
+    protected override int LastForXExtraTurns => 1;
+    protected override bool UntilEndOfOtherSideTurn => true;
 }
 ```
