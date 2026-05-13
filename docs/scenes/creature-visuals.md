@@ -41,6 +41,10 @@ If your scene is converted by `NodeFactory` the requirements are slightly differ
 
 This will first create a basic `NCreatureVisuals` node with a `Visuals` node containing the provided resource as a `Texture2D`, and a `Bounds` node using the size of the image. This will then be passed to the "from scene" factory to add the other necessary nodes.
 
-## Spine
-
 ## Godot Animation
+
+BaseLib supports automatic use of animations defined using either an `AnimationPlayer`, `AnimationPlayer2D`, or `AnimationTree` connected to an `AnimationPlayer` node. The animation names that will automatically be played are the const animation names defined in `CreatureAnimator` or this list of alternative names: "idle", "attack", "cast", "hurt", "die", or the lowercase version of one of the `CreatureAnimator` const values.
+
+For your animations to automatically transition back to idle after played (other than "die") you can edit the animation transitions of the `AnimationPlayer`, or add an `AnimationTree` node. If using an `AnimationTree`, its "Tree Root" will need to to be an `AnimationNodeStateMachine`. When setting up transitions in an `AnimationNodeStateMachine`, you will likely need to set the switch mode of each transition to "At End".
+
+## Spine
