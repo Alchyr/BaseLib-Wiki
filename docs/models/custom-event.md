@@ -14,6 +14,7 @@ Override IsShared as true for events where all players must choose the same opti
 ```c#
 public class TestEvent() : CustomEventModel()
 {
+    // Using in-code localization for the example; you do not need to use this.
     public override List<(string, string)> Localization => LocManager.Instance.Language switch
     { _ => new EventLoc("Test", 
         new EventPageLoc("INITIAL", "Initial page.",

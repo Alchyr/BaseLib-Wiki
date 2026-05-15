@@ -30,7 +30,7 @@ public class FooPower : CustomTemporaryPowerModel
 {
     public override AbstractModel OriginModel => ModelDb.Card<Anticipate>();
     public override PowerModel InternallyAppliedPower => ModelDb.Power<StrengthPower>();
-    protected override Func<PlayerChoiceContext, Creature, decimal, Creature?, CardModel?, bool, Task> ApplyPowerFunc=> PowerCmd.Apply<StrengthPower>;
+    protected override Func<PlayerChoiceContext, Creature, decimal, Creature?, CardModel?, bool, Task> ApplyPowerFunc => PowerCmd.Apply<StrengthPower>;
 }
 ```
 

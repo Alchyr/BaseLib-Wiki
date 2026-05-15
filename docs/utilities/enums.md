@@ -1,5 +1,5 @@
 ---
-title: Custom Enums
+title: Custom Enums (+Keywords)
 parent: Utilities
 ---
 
@@ -16,7 +16,7 @@ It should be a public static field. A readonly field may fail to be set properly
 
 ## Keywords
 
-It is important to note that the `CardKeyword` enum in Slay the Spire 2 is not the same as Slay the Spire 1's keywords, which encompassed all highlighted text that would generate a tooltip. In Slay the Spire 2, `CardKeyword` is exclusively for single words that affect card behavior and don't have an associated number. So `Sly` is a `CardKeyword`, but `Summon` is not. If you need a word with an associated number, see [Dynamic Variable Tooltips]({% link docs/utilities/var-loc.md %}) instead.
+It is important to note that the `CardKeyword` enum in Slay the Spire 2 is not the same as Slay the Spire 1's keywords, which encompassed all highlighted text that would generate a tooltip. In Slay the Spire 2, `CardKeyword` is exclusively for single words that affect card behavior and don't have an associated number. So `Sly` is a `CardKeyword`, but `Summon` is not. If you need a word with an associated number, see [Dynamic Variable Tooltips]({% link docs/localization/var-loc.md %}) instead. The tooltips for powers (buffs and debuffs) are generated based on the power itself using HoverTipFactory.
 
 After defining a `CardKeyword` enum value, you will need to set up localization for it. It will require a `title` and `description` entry with the ID being `MODPREFIX-KEYWORD_NAME`.
 

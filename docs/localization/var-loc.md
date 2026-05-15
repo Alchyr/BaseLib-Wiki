@@ -1,6 +1,6 @@
 ---
 title: Dynamic Variable Tooltips
-parent: Utilities
+parent: Localization
 ---
 
 BaseLib supports attaching localization to a dynamic variable, specifically adding a tooltip for any card that has that dynamic variable. The tooltip's localization should be in `static_hover_tips.json`, with the localization keys being `MODNAME-VAR_NAME.title` and `MODNAME-VAR_NAME.description`.

@@ -39,7 +39,7 @@ public class FancyStrike() : CustomCardModel(1, CardType.Attack, CardRarity.Basi
 
 ## Visuals
 
-While a card's appearance is normally determined by its pool, `CustomCardModel` allows cards to individually set their frame (background) texture and material by overriding `CustomFrame` and/or `CreateCustomFrameMaterial`.
+While a card's appearance is normally determined by its pool, `CustomCardModel` allows cards to individually set parts of their appearance by overriding `CustomFrame` and/or `CreateCustomFrameMaterial` (for their background texture and material), and `CustomBannerMaterial`/`CustomBannerMaterialPath` to change the appearance of the rarity banner.
 
 ## CardModel Documentation
 

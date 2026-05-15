@@ -5,7 +5,9 @@ parent: Utilities
 
 `ModInterop` allows mods to utilize code from other mods without using them as a hard dependency.
 
-It can also be used to access private fields/properties/classes as an alternative to reflection.
+Note that this is effectively a wrapper around reflection best used in some edge cases where some more complex use of a class in another mod is desired (while avoiding a hard dependency).
+
+It can also be used as a way of accessing private fields/properties/classes.
 
 ## Usage
 
@@ -41,7 +43,7 @@ public static class Interop {
     [InteropTarget("MethodName")]
     public static void Annotated(object obj)
     {
-        //Will mimic OtherMod.Namespace.Here
+        //Will mimic OtherMod.Namespace.Here.MethodName
         //object parameters will be treated as wildcards in case a method uses a parameter of a type you don't have access to.
     }
 

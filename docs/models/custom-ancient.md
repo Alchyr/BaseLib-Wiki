@@ -39,6 +39,8 @@ The pools are defined by overriding `MakeOptionPools` and returning a new `Optio
         ));
 ```
 
+You can add spawn conditions to relics by calling `this.AddCustomAncientSpawnCondition` in its constructor. This is used rather than the basegame `IsAllowed` method on relics due to `IsAllowed` receiving no context, and having no basegame uses/implementations (so how it is intended to be used is undetermined). All checks should be performed based on the ancient event passed to the condition function. If checking the player is required, check the event's owner.
+
 ## Spawning
 
 `CustomAncientModel` cannot normally spawn in act 1. The only way to change this is by overriding `ShouldForceSpawn` and returning true if the chosen ancient was Neow.
