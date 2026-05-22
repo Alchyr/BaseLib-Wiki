@@ -42,9 +42,11 @@ For persistent, per-player data, a `SavedSpireField<Player, ?>` will be the reco
 
 ## SavedSpireField
 
-SavedSpireField is a class inheriting from SpireField with the additional functionality of saving and loading its value when attached to a model. Note this will only work for types that the base game saves and loads values for, so primary just `CardModel` and `RelicModel`. This may change in the future.
+SavedSpireField is a class inheriting from SpireField with the additional functionality of saving and loading its value when attached to a model. Note this will only work for types that the base game saves. Currently, it supports any classes inherited from `CardModel`, `RelicModel`, `PotionModel`, `Player`, or `Reward`.
 
-It is used almost identically to a normal SpireField; the only difference is that you have to provide a name which will be used for the save data. SavedSpireField does not support ALL types, only the same types allowed by the basegame's `[SavedProperty]` attribute.
+It is used almost identically to a normal SpireField; the only difference is that you have to provide a name which will be used for the save data. Try to ensure that the name will be something unique to your mod to avoid conflicts.
+
+You can save any type of value in a SavedSpireField, but if it not one of the following types:
 
 - int
 - bool
@@ -55,15 +57,41 @@ It is used almost identically to a normal SpireField; the only difference is tha
 - SerializableCard[]
 - List<SerializableCard>
 
-A SavedSpireField might look like the following:
+You will need to manually register the type you are saving by calling `ExtendedSaveTypes.RegisterAdditionalSaveType` in your mod's initializer. There are convenience methods that handle a large portion of it. If saving a List or Dictionary, use `ExtendedSaveTypes.RegisterListSaveType`/`RegisterDictionarySaveType.RegisterDictionarySaveType`. For other classes, call `ExtendedSaveTypes.RegisterObjectSaveType`. You will need to register each property/field of the object that needs to be saved by passing `ExtendedSaveTypes.PropertyFunc`/`ExtendedSaveTypes.FieldFunc` to the method.
 
-```c#
-public class SpecialNumberThing {
-    public static readonly SavedSpireField<CardModel, int> SpecialNumber = new(() => 0, "MYMOD_SPECIAL_NUMBER");
-}
+```cs
+//Example save type
+public class BlahCard : CustomCardModel
+{
+    //int saved type will work without special registration.
+    public static readonly SavedSpireField<BlahCard, int> SpecialValue = new(() => 100, "my_mod_special_value");
+
+    //custom saved type will require registration.
+    public static readonly SavedSpireField<BlahCard, TestSaveType> TestBlah = new(() => new()
+    {
+        Value = "Default Value"
+    }, "WarehouseTestBlah");
+
+    //If the saved type is not IPacketSerializable, the Serializer and Deserializer properties of the SavedSpireField must be set.
+    public class TestSaveType() : IPacketSerializable
+    {
+        public string Value { get; set; } = "Test";
+
+        public void Serialize(PacketWriter writer)
+        {
+            writer.WriteString(Value);
+        }
+
+        public void Deserialize(PacketReader reader)
+        {
+            Value = reader.ReadString();
+        }
+    }
+
+//In mod initializer
+ExtendedSaveTypes.RegisterObjectSaveType<BlahCard.TestSaveType>(
+    ExtendedSaveTypes.PropertyFunc<BlahCard.TestSaveType, string>(nameof(BlahCard.TestSaveType.Value)));
 ```
-
-Try to ensure that the name will be something unique to your mod to avoid conflicts.
 
 ### Technical
 
