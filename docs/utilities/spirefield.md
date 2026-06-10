@@ -42,20 +42,20 @@ For persistent, per-player data, a `SavedSpireField<Player, ?>` is recommended. 
 
 ## SavedSpireField
 
-SavedSpireField is a class inheriting from SpireField with the additional functionality of saving and loading its value when attached to a model. Note this will only work for types that the base game saves. Currently, it supports any classes inherited from `CardModel`, `RelicModel`, `PotionModel`, `Player`, or `Reward`.
+SavedSpireField is a class inheriting from SpireField with the additional functionality of saving and loading its value when attached to a model. Note this will only work for types that the base game saves. Currently, it supports any classes inherited from `CardModel`, `RelicModel`, `PotionModel`, `EnchantmentModel`, `Player`, `Reward`, or `IRunState`.
 
 It is used almost identically to a normal SpireField; the only difference is that you have to provide a name which will be used for the save data. Try to ensure that the name will be something unique to your mod to avoid conflicts.
 
 You can save any type of value in a SavedSpireField, but if it not one of the following types:
 
-- int
-- bool
-- string
-- int[]
-- ModelId
-- SerializableCard
-- SerializableCard[]
-- List<SerializableCard>
+- `int`
+- `bool`
+- `string`
+- `int[]`
+- `ModelId`
+- `SerializableCard`
+- `SerializableCard[]`
+- `List<SerializableCard>`
 
 You will need to manually register the type you are saving by calling `ExtendedSaveTypes.RegisterAdditionalSaveType` in your mod's initializer. There are convenience methods that handle a large portion of it. If saving a List or Dictionary, use `ExtendedSaveTypes.RegisterListSaveType`/`RegisterDictionarySaveType.RegisterDictionarySaveType`. For other classes, call `ExtendedSaveTypes.RegisterObjectSaveType`. You will need to register each property/field of the object that needs to be saved by passing `ExtendedSaveTypes.PropertyFunc`/`ExtendedSaveTypes.FieldFunc` to the method.
 
@@ -70,7 +70,7 @@ public class BlahCard : CustomCardModel
     public static readonly SavedSpireField<BlahCard, TestSaveType> TestBlah = new(() => new()
     {
         Value = "Default Value"
-    }, "WarehouseTestBlah");
+    }, "TestBlahSaveName");
 
     //If the saved type is not IPacketSerializable, the Serializer and Deserializer properties of the SavedSpireField must be set.
     public class TestSaveType() : IPacketSerializable
