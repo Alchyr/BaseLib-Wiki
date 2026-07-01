@@ -22,10 +22,10 @@ public partial class CardExtraCostDisplay : Control
 {
     public static AddedNode<NCard, CardExtraCostDisplay> Node = new((card) =>
     {
-        //would probably suggest loading from scene rather than this manual setup
+        //Would suggest loading a scene rather than this manual node setup
         var control = new CardExtraCostDisplay();
         
-        var tex = ResourceLoader.Load<Texture2D>("res://mod/images/image.png");
+        var tex = ResourceLoader.Load<Texture2D>("res://Mod/images/image.png");
         
         var size = tex.GetSize();
         var texRect = new TextureRect();
@@ -44,8 +44,36 @@ public partial class CardExtraCostDisplay : Control
         var label = new Label { Text = "1" };
         label.SetAnchorsAndOffsetsPreset(LayoutPreset.Center);
         control.AddChild(label);
-        
+
+        //For cards specifically, this is necessary to use the CardContainer instead of the NCard parent node, 
+        //which does not receive all the transforms.
+        var cardContainer = card.GetChild(0)!;
+        cardContainer.AddChild(control);
+
+        //Changing position to before the star icon node.
+        cardContainer.MoveChild(control, cardContainer.GetNode("%StarIcon").GetIndex());
+
         return control;
     });
+}
+```
+
+Similar example using a scene path:
+```cs
+public class AddedNodes
+{
+    public static AddedNode<NCard, CardExtraCostDisplay> NodeFromSceneFile = new(
+        "res://Mod/scenes/ExtraCostDisplay.tscn",
+        (card, display) =>
+        {
+            //If additional setup is required, that can also be done here.
+            
+            var cardContainer = card.GetChild(0)!;
+            cardContainer.AddChild(display);
+
+            //Changing position to before the star icon node.
+            cardContainer.MoveChild(display, cardContainer.GetNode("%StarIcon").GetIndex());
+        }
+    );
 }
 ```
