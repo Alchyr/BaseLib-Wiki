@@ -5,14 +5,21 @@ parent: Utilities
 
 By marking a static field of an enum type with the `[CustomEnum]` attribute, a new value will be assigned to it at runtime.
 
+Some common examples:
+
 ```c#
     [CustomEnum]
-    public static CardKeyword Keyword;
+    public static CardTag MyNewTag;  // generates a new CardTag value
 ```
+```c#
+    [CustomEnum]
+    public static StaticHoverTip Mechanic;  // generates a new StaticHoverTip value
+```
+You should name your field something that represents the new value.
 
-It should be a public static field. A readonly field may fail to be set properly.
+Fields marked with `[CustomEnum]` can be defined in any class, but should be `public static` fields. A `readonly` field may fail to be set properly.
 
-`CustomEnum` has additional functionality for a few specific enum types.
+`CustomEnum` also has additional functionality for a few specific enum types, such as `CardKeyword`. This is detailed below.
 
 ## Keywords
 
