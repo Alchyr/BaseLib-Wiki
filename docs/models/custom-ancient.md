@@ -45,7 +45,7 @@ You can add spawn conditions to relics by calling `this.AddCustomAncientSpawnCon
 
 `CustomAncientModel` cannot normally spawn in act 1. The only way to change this is by overriding `ShouldForceSpawn` and returning true if the chosen ancient was Neow.
 
-For most ancients, `IsValidForAct` is what should be utilized. Most ancients can only spawn in either act 2 or act 3, not both. Darv is currently the only exception. `CustomAncientModel` defaults to spawning in both act 2 and 3. If you want your ancient to only spawn in a specific act number, a simple check like `public override bool IsValidForAct(ActModel act) => act.ActNumber == 2;` should be used.
+For most ancients, `IsValidForAct` is what should be utilized. Most ancients can only spawn in either act 2 or act 3, not both. Darv is currently the only exception. `CustomAncientModel` defaults to spawning in both act 2 and 3. If you want your ancient to only spawn in a specific act number, a simple check like `public override bool IsValidForAct(ActModel act) => act.ActNumber() == 2;` should be used.
 
 If `ShouldForceSpawn` is used, `IsValidForAct` should most likely be overridden to return false.
 
@@ -66,7 +66,7 @@ Having at least one repeatable conversation with `ANY` is recommended to avoid h
 
 ```c#
 public class Foo : CustomAncientModel {
-    public override bool IsValidForAct(ActModel act) => act.ActNumber == 2;
+    public override bool IsValidForAct(ActModel act) => act.ActNumber() == 2;
 
     protected override OptionPools MakeOptionPools => new(
         MakePool(

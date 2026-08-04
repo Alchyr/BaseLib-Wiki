@@ -35,7 +35,7 @@ public class FancyStrike() : CustomCardModel(1, CardType.Attack, CardRarity.Basi
 
 # Orobas Ancient Cards
 
-`ITranscendenceCard` should be implemented on a starter card that is upgraded by Orobas. Any ancient card within a character's pool that is not a transcendence card can be chosen for Darv's Dusty Tome.
+`ITranscendenceCard` should be implemented on a starter card that is upgraded by Orobas. Any ancient card within a character's pool that is not a transcendence card can be chosen for Darv's Dusty Tome. See [Ancient upgrades]({% link docs/utilities/ancient-upgrades.md %}) for more information.
 
 ## Visuals
 
