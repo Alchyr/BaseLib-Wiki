@@ -76,7 +76,6 @@ public class SpeedPotionPower : CustomTemporaryPowerModelWrapper<SpeedPotion, De
 public class PiercingWailPower : CustomTemporaryPowerModelWrapper<PiercingWail, StrengthPower>
 {
     protected override bool InvertInternalPowerAmount => true;
-    public override PowerType Type => PowerType.Debuff;
 }
 ```
 
