@@ -5,7 +5,7 @@ parent: Scenes
 
 ## NEnergyCounter
 
-This is the script (effectively the base type) that all creature visuals must be. However, when creating a scene through Godot's editor, scripts from other assemblies are not accessible. There are a few options to work around this.
+This is the script (effectively the base type) that all energy counters must be. However, when creating a scene through Godot's editor, scripts from other assemblies are not accessible. There are a few options to work around this.
 
 * Use `NodeFactory<NEnergyCounter>.CreateFromScene` to convert a scene that isn't using `NEnergyCounter` as its script into an `NEnergyCounter` instance. `CustomCharacterModel` will do this by default if the scene path provided for its energy counter does not inherit from `NEnergyCounter`.
 * Define a class inheriting from `NEnergyCounter` marked with the `[GlobalClass]` attribute and use it as the script for your scene. You can add additional functionality in this class as well if you wish.
