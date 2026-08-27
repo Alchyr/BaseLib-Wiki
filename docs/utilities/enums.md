@@ -43,6 +43,26 @@ After defining a `CardKeyword` enum value, you will need to set up localization 
 
 If you want the keyword's ID to be different from the variable name, you can pass a name to the `CustomEnum` attribute.
 
+### Energy Icons
+
+A custom keyword is a rich keyword by default, which means its description can contain energy icons such as `[E]`. See [Simplified Localization]({% link docs/localization/simplified-loc.md %}) for the syntax. If you don't want this, pass `false` for `richKeyword`.
+
+```c#
+    [CustomEnum, KeywordProperties(AutoKeywordPosition.None, false)]
+    public static CardKeyword Keyword;
+```
+
+Unlike a card, a keyword tooltip has no pool attached to it, so BaseLib can't tell on its own which energy icon to display. During a run it uses the character being played, but the card library opened from the main menu has no run, so the icon falls back to colorless there.
+
+If your keyword's description contains an energy icon, use `Pool` to set which pool the icon comes from.
+
+```c#
+    [CustomEnum, KeywordProperties(AutoKeywordPosition.None, Pool = typeof(MyCardPool))]
+    public static CardKeyword Keyword;
+```
+
+The icon is resolved from that pool, so it displays correctly both during a run and in the card library. A keyword that doesn't set `Pool` still uses the character being played.
+
 ## Card Piles
 
 Adding a card pile is not fully tested and may still have some issues, which is why it does not currently have a dedicated page.
