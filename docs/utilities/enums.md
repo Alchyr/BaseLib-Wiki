@@ -19,7 +19,14 @@ You should name your field something that represents the new value.
 
 Fields marked with `[CustomEnum]` can be defined in any class, but should be `public static` fields. A `readonly` field may fail to be set properly.
 
-`CustomEnum` also has additional functionality for a few specific enum types, such as `CardKeyword`. This is detailed below.
+When referencing a `CustomEnum` field, you should **not** use the name of the enum type to reference it. Instead, you should use the name of the class where you defined the field:
+```c#
+    CardTag.MyNewTag      // wrong
+
+    MyClassName.MyNewTag  // correct, assuming the class you made is called MyClassName
+```
+
+`CustomEnum` also has additional functionality for a few specific enum types, such as `CardKeyword` and `CardPile`. This is detailed below.
 
 ## Keywords
 
