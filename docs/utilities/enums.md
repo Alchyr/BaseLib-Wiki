@@ -26,13 +26,17 @@ When referencing a `CustomEnum` field, you should **not** use the name of the en
     MyClassName.MyNewTag  // correct, assuming the class you made is called MyClassName
 ```
 
-`CustomEnum` also has additional functionality for a few specific enum types, such as `CardKeyword` and `CardPile`. This is detailed below.
+`CustomEnum` also has additional functionality for a few specific enum types, such as `StaticHoverTip`, `CardKeyword`, and `CardPile`. This is detailed below.
+
+## Static Hover Tips
+
+After defining a `StaticHoverTip` enum value, you will need to set up localization for it. It will require a `title` and `description` entry with the ID being `MODPREFIX-HOVERTIP_NAME`. These entries should be defined in `static_hover_tips.json`.
 
 ## Keywords
 
 It is important to note that the `CardKeyword` enum in Slay the Spire 2 is not the same as Slay the Spire 1's keywords, which encompassed all highlighted text that would generate a tooltip. In Slay the Spire 2, `CardKeyword` is exclusively for single words that affect card behavior and don't have an associated number. So `Sly` is a `CardKeyword`, but `Summon` is not. If you need a word with an associated number, see [Dynamic Variable Tooltips]({% link docs/localization/var-loc.md %}) instead. The tooltips for powers (buffs and debuffs) are generated based on the power itself using HoverTipFactory.
 
-After defining a `CardKeyword` enum value, you will need to set up localization for it. It will require a `title` and `description` entry with the ID being `MODPREFIX-KEYWORD_NAME`.
+After defining a `CardKeyword` enum value, you will need to set up localization for it. It will require a `title` and `description` entry with the ID being `MODPREFIX-KEYWORD_NAME`. These entries should be defined in `card_keywords.json`.
 
 `CardKeywords` can be automatically added to card text. Basegame does this for all of its `CardKeywords`, meaning card localization does not say `Exhaust` or `Sly`, as it is added automatically to cards with this keyword. To do this for your custom keyword, add the `KeywordProperties` attribute after the `CustomEnum` attribute, like so.
 
