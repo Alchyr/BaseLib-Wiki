@@ -22,14 +22,14 @@ This is the script (effectively the base type) that all creature visuals must be
 
 An `NCreatureVisuals` follows a specific setup and has required named nodes. If you create a class inheriting `NCreatureVisuals` and use it as the script, you will need to match this setup exactly.
 
-The root node should be a Control, with the following children.
+The root node should be a Node2D, with the following children.
 
 | Name              | Unique Name | Details                                                                                                    | Optional |
 |-------------------|:-----------:|------------------------------------------------------------------------------------------------------------|:--------:|
 | Visuals           |     Yes     | Any Node2D. Should contain all visuals.                                                                    |    No    |
 | PhobiaModeVisuals |     Yes     | Any Node2D. Alternative visuals if phobia mode is enabled.                                                 |    Yes   |
 | Bounds            |     Yes     | Control. Hitbox size.                                                                                      |    No    |
-| IntentPosition    |     Yes     | Marker2D. Position of intent, usually around top of bounds.                                                |    No    |
+| IntentPos         |     Yes     | Marker2D. Position of intent, usually around top of bounds.                                                |    No    |
 | CenterPos         |     Yes     | Marker2D. Used as vfx spawn position. Should be approximately at visual center of character.               |    No    |
 | OrbPos            |     Yes     | Marker2D. Central point of orbs, generally similar to intent position. If not provided, IntentPos is used. |    Yes   |
 | TalkPos           |     Yes     | Marker2D. Origin of speech bubbles. If not provided an approximate position is chosen based on Bounds.     |    Yes   |
