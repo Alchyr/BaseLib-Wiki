@@ -138,7 +138,10 @@ internal class MyModConfig : SimpleModConfig {
     // Starts a new collapsible section with the next property/method. Can be localized the same way as
     // properties. For the example mod, this property's text would be defined as:
     // RANDOMEXPLOSIONS-EXPLOSION_SETTINGS.title
+    // Set CollapsedByDefault to true if the section should initially be collapsed when the config page opens.
     [ConfigSection("ExplosionSettings")]
+    // Use [ConfigSection("ExplosionSettings", CollapsedByDefault = true)]
+    // to have the section start collapsed when the config page is opened.
         
     // Only shown if RandomExplosions is enabled above
     [ConfigVisibleIf(nameof(RandomExplosions))]
