@@ -52,7 +52,7 @@ public class TestEvent() : CustomEventModel()
 
     public async Task Ornate()
     {
-        await RelicCmd.Obtain(RelicFactory.PullNextRelicFromFront(Owner!).ToMutable(), Owner!);
+        await RelicCmd.Obtain(RelicFactory.PullNextRelicFromFront(Owner!, Rng).ToMutable(), Owner!);
         await CardPileCmd.AddCurseToDeck<Clumsy>(Owner!);
         SetEventFinished(PageDescription("ORNATE"));
     }
